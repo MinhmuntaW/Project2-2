@@ -24,6 +24,15 @@
         android:background="#8A2EE6"
         android:layout_weight="0.04" />
 
+    <TextView
+        android:layout_width="63dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/nm1"
+        android:textSize="25dp"
+        android:layout_weight="0.25"
+        android:textColor="#5D19A0" />
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"
@@ -49,15 +58,6 @@
             android:id="@+id/m1"
             android:layout_weight="0.3"
             android:textSize="25dp"
-            android:textColor="#5D19A0" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/nm1"
-            android:textSize="25dp"
-            android:layout_weight="0.25"
             android:textColor="#5D19A0" />
 
         <TextView

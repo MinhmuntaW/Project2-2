@@ -40,14 +40,22 @@ public class rank extends ActionBarActivity {
     Handler h;
     Handler handler;
 
+ //   String f="";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rank);
 
+
         LoadNumberTask l = new LoadNumberTask();
 
         l.execute();
+        System.out.println("lLl");
+
+
+
+
 
     }
 
@@ -76,11 +84,16 @@ public class rank extends ActionBarActivity {
 
     class LoadNumberTask extends AsyncTask<String, Void, Boolean> {
 
+        int fast;
+        int thor;
+        int taken;
+
         @Override
         protected Boolean doInBackground(String... params) {
             BufferedReader reader;
             StringBuilder buffer = new StringBuilder();
             String line;
+
 
             try {
                 URL u = new URL("http://ict.siit.tu.ac.th/~u5522773787/its333/fetch.php");
@@ -102,23 +115,28 @@ public class rank extends ActionBarActivity {
                     JSONArray jmsg = json.getJSONArray("msg");
 
                         JSONObject jmessage = jmsg.getJSONObject(0);
-                        String br = jmessage.getString("branch");
-                        String fast = jmessage.getString("Fast7");
-                        String thor = jmessage.getString("Thor");
-                        String taken = jmessage.getString("Taken");
+                     //   String br = jmessage.getString("branch");
+                        fast = jmessage.getInt("Fast7");
+                        thor = jmessage.getInt("Thor");
+                        taken = jmessage.getInt("Taken");
 
-                        Map<String, String> item = new HashMap<String, String>();
-                        item.put("Branch", br);
-                        item.put("Fast7", fast);
-                        item.put("Thor", thor);
-                        item.put("Taken", taken);
-                        data.add(0, item);
+                           Log.e("intFast7",Integer.toString(fast));
+
+//                        f = Integer.toString(fast);
+//                        System.out.println(f);
+
+                    //    item.put("Branch", br);
+//                        item.put("Fast7", fast);
+//                        item.put("Thor", thor);
+//                        item.put("Taken", taken);
+//                        data.add(0, item);
                         System.out.println("Hellooooooooooooooo");
 
 
                     return true;
 
                 }
+
             } catch (MalformedURLException e) {
                 Log.e("LoadMessageTask", "Invalid URL");
             } catch (IOException e) {
@@ -128,6 +146,32 @@ public class rank extends ActionBarActivity {
             }
             return false;
 
+
+        }
+        protected void onPostExecute(Boolean result){
+            TextView tv1,tv2,tv3;
+
+
+            tv1 = (TextView)findViewById(R.id.nm1);
+            tv2 = (TextView)findViewById(R.id.nm2);
+            tv3 = (TextView)findViewById(R.id.nm3);
+
+
+            if (result) {
+
+                 if(fast>=thor && thor>=taken) {
+                     tv1.setText(String.format("Fast = %d%%",fast));
+                     tv2.setText(String.format("thor = %d%%",thor));
+                     tv3.setText(String.format("taken = %d%%",taken));
+                 }else if(fast>=thor && taken>=thor){
+                     tv1.setText(String.format("Fast = %d%%",fast));
+                     tv2.setText(String.format("taken = %d%%",taken));
+                     tv3.setText(String.format("thor = %d%%",thor));
+                 }
+
+//
+//
+            }
 
         }
 

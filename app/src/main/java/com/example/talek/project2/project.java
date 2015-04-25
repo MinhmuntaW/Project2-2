@@ -53,10 +53,9 @@ import java.util.logging.Handler;
 
 public class project extends Activity {
 
-    ArrayList<Map<String, String>> data;
-    SimpleAdapter adapter;
-    Handler h;
-    Handler handler;
+
+
+
     Bitmap bm3DPie = null;
 
     String br;
@@ -101,7 +100,7 @@ public class project extends Activity {
             String A = inputA.getText().toString();
             String B = inputB.getText().toString();
             String C = inputC.getText().toString();
-            System.out.println(BR + " " + A + "   " + B + "   " + C);
+
             String urlRqs3DPie = urlGoogleChart
                     + urlp3Api
                     + A + "," + B + "," + C;
@@ -110,15 +109,20 @@ public class project extends Activity {
             loadbitmap.execute(urlRqs3DPie);
             //   Bitmap bm3DPie = loadChart(urlRqs3DPie);
 
+            int IA = Integer.parseInt(A);
+
+            int IB = Integer.parseInt(B);
+            int IC = Integer.parseInt(C);
             helper = new MovieDBHelper(getApplicationContext());
             SQLiteDatabase db = helper.getWritableDatabase();
             ContentValues r = new ContentValues();
-            r.put("Branch", BR);
-            r.put("Fast7", A);
-            r.put("Thor", B);
-            r.put("Taken", C);
+            r.put("branch", BR);
+            r.put("fast7", IA);
+            r.put("thor", IB);
+            r.put("taken", IC);
+
             long new_id = db.insert("movie", null, r);
-            System.out.println("id" + new_id);
+
 
             br = branch.getText().toString().trim();
             fast = inputA.getText().toString().trim();
@@ -126,7 +130,7 @@ public class project extends Activity {
             taken = inputC.getText().toString().trim();
 
             if(BR.length()>0 && A.length()>0 && B.length()>0 && C.length()>0){
-                System.out.println(br);
+
                 PostMessageTask p = new PostMessageTask();
 
                 p.execute(br,fast,thor,taken);
